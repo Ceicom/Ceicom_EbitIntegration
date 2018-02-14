@@ -47,12 +47,6 @@ $EbitIntegrationPopup = Mage::getStoreConfig('EbitIntegration/config/EbitIntegra
 	 //order
 	 $order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
 
-	 //Store Id
-	 $storeId = Mage::getModel('core/variable')->loadByCode('ebitstore')->getValue('html');
-
-	 //Buscape Id
-	 $buscapeId = Mage::getModel('core/variable')->loadByCode('ebitbuscape')->getValue('html');
-
 	 //price total
 	 $priceTotal = number_format($order->grandTotal, 2, '.','');
 
