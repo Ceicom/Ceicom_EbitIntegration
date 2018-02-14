@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ *
+ * @category   Ceicom
+ * @package   Ceicom_EbitIntegration
+ * @author      Suporte <suporte@ceicom.com.br>
+ * @website    http://www.ceicom.com.br
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+	<modules>
+		<Ceicom_EbitIntegration>
+			<active>true</active>
+			<codePool>community</codePool>
+			<version>0.0.1</version>
+		</Ceicom_EbitIntegration>
+	</modules>
+</config>

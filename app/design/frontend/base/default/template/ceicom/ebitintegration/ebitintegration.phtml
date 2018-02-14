@@ -1,0 +1,125 @@
+<?php
+/**
+ *
+ * @category   Ceicom
+ * @package   Ceicom_EbitIntegration
+ * @author      Suporte <suporte@ceicom.com.br>
+ * @website    http://www.ceicom.com.br
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+//config
+//
+$EbitIntegrationHabilitar = Mage::getStoreConfig('EbitIntegration/config/EbitIntegration_habilitar');
+
+//Store Id
+$EbitIntegrationStoreid = Mage::getStoreConfig('EbitIntegration/config/EbitIntegration_storeid');
+
+//Buscape Id
+$EbitIntegrationBuscapeid = Mage::getStoreConfig('EbitIntegration/config/EbitIntegration_buscapeid');
+
+//Popup Ebit
+$EbitIntegrationPopup = Mage::getStoreConfig('EbitIntegration/config/EbitIntegration_popup');
+
+?>
+
+<?php if ( $EbitIntegrationHabilitar == 1 ):  ?>
+	<div class="ebit-integration">
+	<?php if ( $EbitIntegrationStoreid == '000000' || !$EbitIntegrationBuscapeid == '000000' ):  ?>
+
+		<div class="erro">
+			<strong>Configure seu id Ebit e id Buscape</strong>
+		</div>
+
+	<?php else : ?>
+
+	 <?php  echo $EbitIntegrationHabilitar . '<br>' . $EbitIntegrationStoreid . '<br>' . $EbitIntegrationBuscapeid . '<br>' . $EbitIntegrationPopup; ?>
+
+	 <!-- selo ebit  -->
+	 <?php
+
+	 //Habilitar popup
+	 $popupEnable = $EbitIntegrationPopup == 1 ? 'true' : 'false';
+
+	 //Id de order
+	 $orderId = Mage::getSingleton('checkout/session')->getLastRealOrderId();
+
+	 //order
+	 $order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
+
+	 //Store Id
+	 $storeId = Mage::getModel('core/variable')->loadByCode('ebitstore')->getValue('html');
+
+	 //Buscape Id
+	 $buscapeId = Mage::getModel('core/variable')->loadByCode('ebitbuscape')->getValue('html');
+
+	 //price total
+	 $priceTotal = number_format($order->grandTotal, 2, '.','');
+
+	 //Customer
+	 //email
+	 $emailCustomer = $order->getCustomerEmail();
+	 //data de nacimento
+	 $birthdayCustomer = date('d-m-Y', strtotime($order->getCustomerDob()));
+	 //sexo
+	 $genderCustomer = $order->getCustomerGender() == '1' ? 'M' : 'F';
+	 //Shipping
+	 $taxShipping =  Mage::helper('core')->currency($order->getBaseShippingInclTax(), false, false);
+
+	 //Address
+	 //id de endereco de compra
+	 $addressId = $order->getShippingAddress()->getId();
+	 //carrega infos de endereco
+	 $address = Mage::getModel('sales/order_address')->load($addressId);
+	 //pega o cep de entraga
+	 $cepAddress = $address->getPostcode();
+
+	 //forma de pagamento
+	 //$paymentType = $order->getPayment()->getMethodInstance()->getCode();
+
+	 //pega as infos de cada produto
+	 $priceAll = '';
+	 $qtyAll = '';
+	 $nameAll = '';
+	 $skuAll = '';
+	 $eanAll = '';
+
+	 foreach($order->getAllVisibleItems() as $item){
+
+			 //pega a preco de cada produto
+			 $priceProd = Mage::helper('core')->currency($item->getPrice(), false, false);
+			 $priceAll .= strlen($priceAll) > 0 ? '|' . $priceProd : $priceProd;
+
+			 //pega a quantidade de cada produto
+			 $qtyProd = round($item->getQtyOrdered(), 0);
+			 $qtyAll .= strlen($qtyAll) > 0 ? '|' . $qtyProd : $qtyProd;
+
+			 //pega o nome de cada produto
+			 $nameProd = $item->getName();
+			 $nameAll .= strlen($nameAll) > 0 ? '|' . $nameProd : $nameProd;
+
+			 //pega o sku de cada produto
+			 $skuProd = $item->getSku();
+			 $skuAll .= strlen($skuAll) > 0 ? '|' . $skuProd : $skuProd;
+
+			 //pega o ean de cada produto
+			 //$eanProd = $item->getProduct()->getData('ean');
+			 //$eanAll .= strlen($eanAll) > 0 ? '|' . $eanProd : $eanProd;
+
+			 //pega o mktSaleID de cada produto
+			 $mktProd = '0';
+			 $mktAll .= strlen($mktAll) > 0 ? '|' . $mktProd : $mktProd;
+
+	 }
+	 ?>
+
+	 <a id="bannerEbit"></a>
+	 <script type="text/javascript" id="getSelo" src="https://imgs.ebit.com.br/ebitBR/selo-ebit/js/getSelo.js?<?php echo $EbitIntegrationStoreid ?>&lightbox=<?php echo $popupEnable ?>"></script>
+
+	 <param id="ebitParam" value="email=<?php echo $emailCustomer ?>&gender=<?php echo $genderCustomer ?>&birthDay=<?php echo $birthdayCustomer ?>&zipCode=<?php echo $cepAddress ?>&mktSaleID=<?php echo $mktAll;  ?>&deliveryTax=<?php echo $taxShipping ?>&totalSpent=<?php echo $priceAll ?>&value=<?php echo $priceTotal ?>&quantity=<?php echo $qtyAll ?>&productName=<?php echo $nameAll ?>&transactionId=<?php echo $orderId ?>&sku=<?php echo $skuAll ?>&plataform=0&buscapeId=<?php echo $EbitIntegrationBuscapeid ?>&storeId=<?php echo $EbitIntegrationStoreid ?>"/>
+
+	 <!-- /selo ebit -->
+
+	<?php endif; ?>
+	</div>
+<?php endif; ?>

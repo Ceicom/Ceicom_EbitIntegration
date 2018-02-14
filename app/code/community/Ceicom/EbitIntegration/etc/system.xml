@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<!--
+/**
+ *
+ * @category   Ceicom
+ * @package   Ceicom_EbitIntegration
+ * @author      Suporte <suporte@ceicom.com.br>
+ * @website    http://www.ceicom.com.br
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+	<tabs>
+		<ceicom translate="label" module="EbitIntegration">
+			<label>Ceicom</label>
+			<sort_order>0</sort_order>
+		</ceicom>
+	</tabs>
+	<sections>
+		<EbitIntegration  translate="label" module="EbitIntegration">
+			<label>Ebit Integration</label>
+			<tab>ceicom</tab>
+			<frontend_type>text</frontend_type>
+			<sort_order>0</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+			<groups>
+				<config translate="label">
+					<label>Config</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>1</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<comment>
+						<![CDATA[
+						<div>
+							<a href="http://www.ceicom.com.br"><img style="" src="http://www.ceicom.com.br/img/logo.png?v=1.0"><br /></a>
+							<strong>Ceicom Ebit Integration</strong> Versão: 0.0.1<br />
+							<hr /><br />
+							Este módulo foi desenvolvido por <a href="//github.com/jonatanaxe">Jonatan Machado</a><br />
+							Ceicom: <a href="http://www.ceicom.com.br/">www.ceicom.com.br</a><br />
+							Github: <a href="//github.com/jonatanaxe">Jonatan Machado</a>
+							<br /><br /><hr />
+						</div>
+						]]>
+					</comment>
+					<fields>
+						<EbitIntegration_habilitar translate="label">
+							<label>Habilitar</label>
+							<comment>Habilitar integração com Ebit com Parâmetro da compra</comment>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</EbitIntegration_habilitar>
+						<EbitIntegration_storeid translate="label">
+							<label>Ebit Store ID</label>
+							<comment>Id da sua loja no Ebit</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>2</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</EbitIntegration_storeid>
+						<EbitIntegration_buscapeid translate="label">
+							<label>Ebit Buscape ID</label>
+							<comment>Id do buscape da sua loja</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>3</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</EbitIntegration_buscapeid>
+						<EbitIntegration_popup translate="label">
+							<label>Popup Ebit</label>
+							<comment>Habilitar Popup do Ebit</comment>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>4</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</EbitIntegration_popup>
+					</fields>
+				</config>
+			</groups>
+		</EbitIntegration>
+	</sections>
+</config>
