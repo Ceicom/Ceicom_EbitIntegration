@@ -1,3 +1,5 @@
+![ceicom](http://www.ceicom.com.br/img/logo.png?v=1.0)
+
 # Ceicom_EbitIntegration
 ============================
 
