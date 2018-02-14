@@ -19,7 +19,7 @@ System> Configuration> Ceicom> Ebit Integration
 
 ## Authors
 
-* **Jonatan Machado* - *Initial work* - [Git Jonatan](https://github.com/JonatanM)
+* **Jonatan Machado* - *Initial work* - [Git Jonatan](https://github.com/jonatanaxe)
 * **Ceicom* - [ceicom.com.br](http://www.ceicom.com.br/)
 
 ## License
