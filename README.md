@@ -7,6 +7,8 @@
 
 **Add** integration with Ebit with purchase parameters
 
+Modulo de integraçao com Ebit por parametros *Obrigatorios
+
 ## Installation
 
 **Send** the 'app/skin' folder to the root of the magento installation
