@@ -25,7 +25,7 @@ $EbitIntegrationPopup = Mage::getStoreConfig('EbitIntegration/config/EbitIntegra
 
 <?php if ( $EbitIntegrationHabilitar == 1 ):  ?>
 	<div class="ebit-integration">
-	<?php if ( $EbitIntegrationStoreid == '000000' || !$EbitIntegrationBuscapeid == '000000' ):  ?>
+	<?php if ( $EbitIntegrationStoreid == '000000' || $EbitIntegrationBuscapeid == '000000' ):  ?>
 
 		<div class="erro">
 			<strong>Configure seu id Ebit e id Buscape</strong>
