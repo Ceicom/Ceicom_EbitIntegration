@@ -9,6 +9,8 @@
 
 Modulo de integraçao com Ebit por parametros *Obrigatorios
 
+Versões: Magento 1.x.x
+
 ## Installation
 
 **Send** the 'app/skin' folder to the root of the magento installation
