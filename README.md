@@ -17,6 +17,9 @@ Modulo de integraçao com Ebit por parametros *Obrigatorios
 
 **Add** After installation install idEbit and idBuscapé in
 System> Configuration> Ceicom> Ebit Integration
+Print config:
+https://prnt.sc/iemtkf
+![print](https://image.prntscr.com/image/Hf9fj3pNR-iuadiVHTVT3Q.png)
 
 
 ## Authors
