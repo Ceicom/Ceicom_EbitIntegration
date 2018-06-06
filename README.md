@@ -8,7 +8,7 @@
 **Add** integration with Ebit with purchase parameters
 
 - O módulo faz o envio das informações solicitadas pelo GRUPO BUSCAPÉ para o E-Bit.
-
+```
 <param id="ebitParam" 
 value="email={email}
 &gender={gender}
@@ -27,6 +27,7 @@ value="email={email}
 &buscapeId={BuscapeId}
 &storeId={storeId}"
 />
+```
 
 Versões: Magento 1.x.x
 
