@@ -7,7 +7,26 @@
 
 **Add** integration with Ebit with purchase parameters
 
-Modulo de integraçao com Ebit por parametros *Obrigatorios
+- O módulo faz o envio das informações solicitadas pelo GRUPO BUSCAPÉ para o E-Bit.
+
+<param id="ebitParam" 
+value="email={email}
+&gender={gender}
+&birthDay={birthDay}
+&zipCode={zipCode}
+&parcels={parcels}
+&deliveryTax={deliveryTax}
+&deliveryTime={deliveryTime}
+&totalSpent={totalSpent}
+&value={value}
+&quantity={quantity}
+&productName={productName}
+&transactionId={transactionId}
+&ean={eanCode}
+&sku={sku}
+&buscapeId={BuscapeId}
+&storeId={storeId}"
+/>
 
 Versões: Magento 1.x.x
 
