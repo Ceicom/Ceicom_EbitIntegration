@@ -25,19 +25,13 @@ $EbitIntegrationPopup = Mage::getStoreConfig('EbitIntegration/config/EbitIntegra
 
 <?php if ( $EbitIntegrationHabilitar == 1 ):  ?>
 	<div class="ebit-integration">
-	<?php if ( $EbitIntegrationStoreid == '000000' || $EbitIntegrationBuscapeid == '000000' ):  ?>
+	<?php if ( $EbitIntegrationStoreid == '' || $EbitIntegrationBuscapeid == '' ):  ?>
 
 		<div class="erro">
-			<strong>Configure seu id Ebit e id Buscape</strong>
+			<strong>Configure seu id Ebit e id Buscape no painel administrativo do magento</strong>
 		</div>
 
 	<?php else : ?>
-	
-	
-	 <?php
-	 //Apenas para testes 
-	 // echo $EbitIntegrationHabilitar . '<br>' . $EbitIntegrationStoreid . '<br>' . $EbitIntegrationBuscapeid . '<br>' . $EbitIntegrationPopup; 
-	 ?>
 
 	 <!-- selo ebit  -->
 	 <?php
@@ -84,29 +78,29 @@ $EbitIntegrationPopup = Mage::getStoreConfig('EbitIntegration/config/EbitIntegra
 
 	 foreach($order->getAllVisibleItems() as $item){
 
-			 //pega a preco de cada produto
-			 $priceProd = Mage::helper('core')->currency($item->getPrice(), false, false);
-			 $priceAll .= strlen($priceAll) > 0 ? '|' . $priceProd : $priceProd;
+		//pega a preco de cada produto
+		$priceProd = Mage::helper('core')->currency($item->getPrice(), false, false);
+		$priceAll .= strlen($priceAll) > 0 ? '|' . $priceProd : $priceProd;
 
-			 //pega a quantidade de cada produto
-			 $qtyProd = round($item->getQtyOrdered(), 0);
-			 $qtyAll .= strlen($qtyAll) > 0 ? '|' . $qtyProd : $qtyProd;
+		//pega a quantidade de cada produto
+		$qtyProd = round($item->getQtyOrdered(), 0);
+		$qtyAll .= strlen($qtyAll) > 0 ? '|' . $qtyProd : $qtyProd;
 
-			 //pega o nome de cada produto
-			 $nameProd = $item->getName();
-			 $nameAll .= strlen($nameAll) > 0 ? '|' . $nameProd : $nameProd;
+		//pega o nome de cada produto
+		$nameProd = $item->getName();
+		$nameAll .= strlen($nameAll) > 0 ? '|' . $nameProd : $nameProd;
 
-			 //pega o sku de cada produto
-			 $skuProd = $item->getSku();
-			 $skuAll .= strlen($skuAll) > 0 ? '|' . $skuProd : $skuProd;
+		//pega o sku de cada produto
+		$skuProd = $item->getSku();
+		$skuAll .= strlen($skuAll) > 0 ? '|' . $skuProd : $skuProd;
 
-			 //pega o ean de cada produto
-			 //$eanProd = $item->getProduct()->getData('ean');
-			 //$eanAll .= strlen($eanAll) > 0 ? '|' . $eanProd : $eanProd;
+		//pega o ean de cada produto
+		$eanProd = $item->getProduct()->getData('ean');
+		$eanAll .= strlen($eanAll) > 0 ? '|' . $eanProd : $eanProd;
 
-			 //pega o mktSaleID de cada produto
-			 $mktProd = '0';
-			 $mktAll .= strlen($mktAll) > 0 ? '|' . $mktProd : $mktProd;
+		//pega o mktSaleID de cada produto
+		$mktProd = '0';
+		$mktAll .= strlen($mktAll) > 0 ? '|' . $mktProd : $mktProd;
 
 	 }
 	 ?>
@@ -114,7 +108,31 @@ $EbitIntegrationPopup = Mage::getStoreConfig('EbitIntegration/config/EbitIntegra
 	 <a id="bannerEbit"></a>
 	 <script type="text/javascript" id="getSelo" src="https://imgs.ebit.com.br/ebitBR/selo-ebit/js/getSelo.js?<?php echo $EbitIntegrationStoreid ?>&lightbox=<?php echo $popupEnable ?>"></script>
 
-	 <param id="ebitParam" value="email=<?php echo $emailCustomer ?>&gender=<?php echo $genderCustomer ?>&birthDay=<?php echo $birthdayCustomer ?>&zipCode=<?php echo $cepAddress ?>&mktSaleID=<?php echo $mktAll;  ?>&deliveryTax=<?php echo $taxShipping ?>&totalSpent=<?php echo $priceAll ?>&value=<?php echo $priceTotal ?>&quantity=<?php echo $qtyAll ?>&productName=<?php echo $nameAll ?>&transactionId=<?php echo $orderId ?>&sku=<?php echo $skuAll ?>&plataform=0&buscapeId=<?php echo $EbitIntegrationBuscapeid ?>&storeId=<?php echo $EbitIntegrationStoreid ?>"/>
+
+	 <?php
+
+	$htmlParam .= '<param id="ebitParam" value="';
+	$htmlParam .=     'email=' . $emailCustomer;
+	$htmlParam .=     '&gender=' . $genderCustomer;
+	$htmlParam .=     '&birthDay=' . $birthdayCustomer;
+	$htmlParam .=     '&zipCode=' . $cepAddress;
+	$htmlParam .=     '&mktSaleID=' . $mktAll;
+	$htmlParam .=     '&deliveryTax=' . $taxShipping;
+	$htmlParam .=     '&totalSpent=' . $priceAll;
+	$htmlParam .=     '&value=' . $priceTotal;
+	$htmlParam .=     '&quantity=' . $qtyAll;
+	$htmlParam .=     '&productName=' . $nameAll;
+	$htmlParam .=     '&transactionId=' . $orderId;
+	$htmlParam .=     '&sku=' . $skuAll;
+	$htmlParam .=     '&ean=' . $eanAll;
+	$htmlParam .=     '&plataform=0';
+	$htmlParam .=     '&buscapeId=' . $EbitIntegrationBuscapeid;
+	$htmlParam .=     '&storeId=' . $EbitIntegrationStoreid;
+	$htmlParam .= '"/>';
+
+
+	 echo  $htmlParam;
+	 ?>
 
 	 <!-- /selo ebit -->
 
