@@ -33,105 +33,105 @@ $EbitIntegrationPopup = Mage::getStoreConfig('EbitIntegration/config/EbitIntegra
 
 	<?php else : ?>
 
-	 <!-- selo ebit  -->
-	 <?php
+		<!-- selo ebit  -->
+		<?php
 
-	 //Habilitar popup
-	 $popupEnable = $EbitIntegrationPopup == 1 ? 'true' : 'false';
+		//Habilitar popup
+		$popupEnable = $EbitIntegrationPopup == 1 ? 'true' : 'false';
 
-	 //Id de order
-	 $orderId = Mage::getSingleton('checkout/session')->getLastRealOrderId();
+		//Id de order
+		$orderId = Mage::getSingleton('checkout/session')->getLastRealOrderId();
 
-	 //order
-	 $order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
+		//order
+		$order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
 
-	 //price total
-	 $priceTotal = number_format($order->grandTotal, 2, '.','');
+		//price total
+		$priceTotal = number_format($order->grandTotal, 2, '.','');
 
-	 //Customer
-	 //email
-	 $emailCustomer = $order->getCustomerEmail();
-	 //data de nacimento
-	 $birthdayCustomer = date('d-m-Y', strtotime($order->getCustomerDob()));
-	 //sexo
-	 $genderCustomer = $order->getCustomerGender() == '1' ? 'M' : 'F';
-	 //Shipping
-	 $taxShipping =  Mage::helper('core')->currency($order->getBaseShippingInclTax(), false, false);
+		//Customer
+		//email
+		$emailCustomer = $order->getCustomerEmail();
+		//data de nacimento
+		$birthdayCustomer = date('d-m-Y', strtotime($order->getCustomerDob()));
+		//sexo
+		$genderCustomer = $order->getCustomerGender() == '1' ? 'M' : 'F';
+		//Shipping
+		$taxShipping =  Mage::helper('core')->currency($order->getBaseShippingInclTax(), false, false);
 
-	 //Address
-	 //id de endereco de compra
-	 $addressId = $order->getShippingAddress()->getId();
-	 //carrega infos de endereco
-	 $address = Mage::getModel('sales/order_address')->load($addressId);
-	 //pega o cep de entraga
-	 $cepAddress = $address->getPostcode();
+		//Address
+		//id de endereco de compra
+		$addressId = $order->getShippingAddress()->getId();
+		//carrega infos de endereco
+		$address = Mage::getModel('sales/order_address')->load($addressId);
+		//pega o cep de entraga
+		$cepAddress = $address->getPostcode();
 
-	 //forma de pagamento
-	 //$paymentType = $order->getPayment()->getMethodInstance()->getCode();
+		//forma de pagamento
+		//$paymentType = $order->getPayment()->getMethodInstance()->getCode();
 
-	 //pega as infos de cada produto
-	 $priceAll = '';
-	 $qtyAll = '';
-	 $nameAll = '';
-	 $skuAll = '';
-	 $eanAll = '';
+		//pega as infos de cada produto
+		$priceAll = '';
+		$qtyAll = '';
+		$nameAll = '';
+		$skuAll = '';
+		$eanAll = '';
 
-	 foreach($order->getAllVisibleItems() as $item){
+		foreach($order->getAllVisibleItems() as $item){
 
-		//pega a preco de cada produto
-		$priceProd = Mage::helper('core')->currency($item->getPrice(), false, false);
-		$priceAll .= strlen($priceAll) > 0 ? '|' . $priceProd : $priceProd;
+			//pega a preco de cada produto
+			$priceProd = Mage::helper('core')->currency($item->getPrice(), false, false);
+			$priceAll .= strlen($priceAll) > 0 ? '|' . $priceProd : $priceProd;
 
-		//pega a quantidade de cada produto
-		$qtyProd = round($item->getQtyOrdered(), 0);
-		$qtyAll .= strlen($qtyAll) > 0 ? '|' . $qtyProd : $qtyProd;
+			//pega a quantidade de cada produto
+			$qtyProd = round($item->getQtyOrdered(), 0);
+			$qtyAll .= strlen($qtyAll) > 0 ? '|' . $qtyProd : $qtyProd;
 
-		//pega o nome de cada produto
-		$nameProd = $item->getName();
-		$nameAll .= strlen($nameAll) > 0 ? '|' . $nameProd : $nameProd;
+			//pega o nome de cada produto
+			$nameProd = $item->getName();
+			$nameAll .= strlen($nameAll) > 0 ? '|' . $nameProd : $nameProd;
 
-		//pega o sku de cada produto
-		$skuProd = $item->getSku();
-		$skuAll .= strlen($skuAll) > 0 ? '|' . $skuProd : $skuProd;
+			//pega o sku de cada produto
+			$skuProd = $item->getSku();
+			$skuAll .= strlen($skuAll) > 0 ? '|' . $skuProd : $skuProd;
 
-		//pega o ean de cada produto
-		$eanProd = $item->getProduct()->getData('ean');
-		$eanAll .= strlen($eanAll) > 0 ? '|' . $eanProd : $eanProd;
+			//pega o ean de cada produto
+			$eanProd = $item->getProduct()->getData('ean');
+			$eanAll .= strlen($eanAll) > 0 ? '|' . $eanProd : $eanProd;
 
-		//pega o mktSaleID de cada produto
-		$mktProd = '0';
-		$mktAll .= strlen($mktAll) > 0 ? '|' . $mktProd : $mktProd;
+			//pega o mktSaleID de cada produto
+			$mktProd = '0';
+			$mktAll .= strlen($mktAll) > 0 ? '|' . $mktProd : $mktProd;
 
-	 }
-	 ?>
-
-	 <a id="bannerEbit"></a>
-	 <script type="text/javascript" id="getSelo" src="https://imgs.ebit.com.br/ebitBR/selo-ebit/js/getSelo.js?<?php echo $EbitIntegrationStoreid ?>&lightbox=<?php echo $popupEnable ?>"></script>
+		}
 
 
-	 <?php
+		$htmlParam .= '<a id="bannerEbit"></a>';
+		$htmlParam .= '<script type="text/javascript" id="getSelo" src="https://imgs.ebit.com.br/ebitBR/selo-ebit/js/getSelo.js?';
+		$htmlParam .=      $EbitIntegrationStoreid;
+		$htmlParam .=      '&lightbox=' . $popupEnable;
+		$htmlParam .= '"></script>';
 
-	$htmlParam .= '<param id="ebitParam" value="';
-	$htmlParam .=     'email=' . $emailCustomer;
-	$htmlParam .=     '&gender=' . $genderCustomer;
-	$htmlParam .=     '&birthDay=' . $birthdayCustomer;
-	$htmlParam .=     '&zipCode=' . $cepAddress;
-	$htmlParam .=     '&mktSaleID=' . $mktAll;
-	$htmlParam .=     '&deliveryTax=' . $taxShipping;
-	$htmlParam .=     '&totalSpent=' . $priceAll;
-	$htmlParam .=     '&value=' . $priceTotal;
-	$htmlParam .=     '&quantity=' . $qtyAll;
-	$htmlParam .=     '&productName=' . $nameAll;
-	$htmlParam .=     '&transactionId=' . $orderId;
-	$htmlParam .=     '&sku=' . $skuAll;
-	$htmlParam .=     '&ean=' . $eanAll;
-	$htmlParam .=     '&plataform=0';
-	$htmlParam .=     '&buscapeId=' . $EbitIntegrationBuscapeid;
-	$htmlParam .=     '&storeId=' . $EbitIntegrationStoreid;
-	$htmlParam .= '"/>';
+		$htmlParam .= '<param id="ebitParam" value="';
+		$htmlParam .=     'email=' . $emailCustomer;
+		$htmlParam .=     '&gender=' . $genderCustomer;
+		$htmlParam .=     '&birthDay=' . $birthdayCustomer;
+		$htmlParam .=     '&zipCode=' . $cepAddress;
+		$htmlParam .=     '&mktSaleID=' . $mktAll;
+		$htmlParam .=     '&deliveryTax=' . $taxShipping;
+		$htmlParam .=     '&totalSpent=' . $priceTotal;
+		$htmlParam .=     '&value=' . $priceAll;
+		$htmlParam .=     '&quantity=' . $qtyAll;
+		$htmlParam .=     '&productName=' . $nameAll;
+		$htmlParam .=     '&transactionId=' . $orderId;
+		$htmlParam .=     '&sku=' . $skuAll;
+		$htmlParam .=     '&ean=' . $eanAll;
+		$htmlParam .=     '&plataform=0';
+		$htmlParam .=     '&buscapeId=' . $EbitIntegrationBuscapeid;
+		$htmlParam .=     '&storeId=' . $EbitIntegrationStoreid;
+		$htmlParam .= '"/>';
 
 
-	 echo  $htmlParam;
+	 	echo  $htmlParam;
 	 ?>
 
 	 <!-- /selo ebit -->
