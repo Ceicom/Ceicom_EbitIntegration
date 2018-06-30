@@ -1,3 +1,8 @@
+## This module is in development do not download the master to use in your store
+
+## Download
+* **[Download do Modulo 0.0.1](https://github.com/Ceicom/Ceicom_EbitIntegration/releases)
+
 ![ceicom](http://www.ceicom.com.br/img/logo.png?v=1.0)
 
 # Ceicom_EbitIntegration
