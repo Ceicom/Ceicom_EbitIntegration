@@ -16,6 +16,11 @@
 		</Ceicom_EbitIntegration>
 	</modules>
 	<global>
+		<blocks>
+	     <ceicom_ebitintegration>
+	         <class>Ceicom_EbitIntegration_Block</class>
+	     </ceicom_ebitintegration>
+	  </blocks>
 		<helpers>
 			<EbitIntegration>
 				<class>Ceicom_EbitIntegration_Helper</class>
@@ -25,9 +30,9 @@
 	<frontend>
 		<layout>
 			<updates>
-				<ceicom_EbitIntegration>
+				<ceicom_ebitintegration>
 					<file>ceicom/ebitintegration.xml</file>
-				</ceicom_EbitIntegration>
+				</ceicom_ebitintegration>
 			</updates>
 		</layout>
 	</frontend>
@@ -35,8 +40,8 @@
 		<EbitIntegration>
 			<config>
 				<habilitar>0</habilitar>
-				<EbitIntegration_storeid>000000</EbitIntegration_storeid>
-				<EbitIntegration_buscapeid>000000</EbitIntegration_buscapeid>
+				<EbitIntegration_storeid></EbitIntegration_storeid>
+				<EbitIntegration_buscapeid></EbitIntegration_buscapeid>
 				<EbitIntegration_popup>1</EbitIntegration_popup>
 			</config>
 		</EbitIntegration>
