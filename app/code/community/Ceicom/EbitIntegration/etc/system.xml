@@ -3,22 +3,22 @@
 /**
  *
  * @category   Ceicom
- * @package   Ceicom_EbitIntegration
- * @author      Suporte <suporte@ceicom.com.br>
+ * @package   Ceicom_ebitintegration
+ * @author      Jonatan <jonatan@ceicom.com.br>
  * @website    http://www.ceicom.com.br
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 -->
 <config>
 	<tabs>
-		<ceicom translate="label" module="EbitIntegration">
+		<ceicom translate="label" module="ceicom_ebitintegration">
 			<label>Ceicom</label>
 			<sort_order>0</sort_order>
 		</ceicom>
 	</tabs>
 	<sections>
-		<EbitIntegration  translate="label" module="EbitIntegration">
-			<label>Ebit Integration</label>
+		<ceicom_ebitintegration  translate="label" module="ceicom_ebitintegration">
+			<label>Integração com o Ebit</label>
 			<tab>ceicom</tab>
 			<frontend_type>text</frontend_type>
 			<sort_order>0</sort_order>
@@ -47,7 +47,8 @@
 						]]>
 					</comment>
 					<fields>
-						<EbitIntegration_habilitar translate="label">
+
+						<ebitintegration_habilitar translate="label">
 							<label>Habilitar</label>
 							<comment>Habilitar integração com Ebit com Parâmetro da compra</comment>
 							<frontend_type>select</frontend_type>
@@ -56,9 +57,9 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</EbitIntegration_habilitar>
-						
-						<EbitIntegration_storeid translate="label">
+						</ebitintegration_habilitar>
+
+						<ebitintegration_storeid translate="label">
 							<label>Ebit Store ID</label>
 							<comment>Id da sua loja no Ebit</comment>
 							<frontend_type>text</frontend_type>
@@ -66,9 +67,9 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</EbitIntegration_storeid>
-						
-						<EbitIntegration_buscapeid translate="label">
+						</ebitintegration_storeid>
+
+						<ebitintegration_buscapeid translate="label">
 							<label>Ebit Buscape ID</label>
 							<comment>Id do buscape da sua loja</comment>
 							<frontend_type>text</frontend_type>
@@ -76,19 +77,30 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</EbitIntegration_buscapeid>
+						</ebitintegration_buscapeid>
 
-						<EbitIntegration_pagamentos translate="label">
-							 <label>Custom Config Field One</label>
+						<ebitintegration_pagamentos translate="label">
+							 <label>Configurar pagamento com o id do Ebit</label>
+							 <comment>
+								<![CDATA[
+									ID do tipo de pagamento. Valores aceitos são:<br>
+									05 (Cartão de Crédito)<br>
+									08 (Boleto Bancário)<br>
+									14 (Outros)<br>
+									24 (Cartão da Loja)<br>
+									25 (Pagamento por Celular)<br>
+									28 (Cartão de Débito / Débito em Conta)
+								]]>
+							 </comment>
 							 <sort_order>10</sort_order>
 							 <show_in_store>1</show_in_store>
 							 <show_in_website>1</show_in_website>
 							 <show_in_default>1</show_in_default>
 							 <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
-							 <frontend_model>ceicom_ebitIntegration/adminhtml_Pagamentos</frontend_model>
-					 </EbitIntegration_pagamentos>
+							 <frontend_model>ceicom_ebitintegration/adminhtml_pagamentos</frontend_model>
+					 </ebitintegration_pagamentos>
 
-						<EbitIntegration_popup translate="label">
+						<ebitintegration_popup translate="label">
 							<label>Popup Ebit</label>
 							<comment>Habilitar Popup do Ebit</comment>
 							<frontend_type>select</frontend_type>
@@ -97,10 +109,11 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>1</show_in_website>
 							<show_in_store>1</show_in_store>
-						</EbitIntegration_popup>
+						</ebitintegration_popup>
+
 					</fields>
 				</config>
 			</groups>
-		</EbitIntegration>
+		</ceicom_ebitintegration>
 	</sections>
 </config>

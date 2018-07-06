@@ -3,23 +3,24 @@
  *
  * @category   Ceicom
  * @package   Ceicom_EbitIntegration
- * @author      Suporte <suporte@ceicom.com.br>
+ * @author      Jonatan <jonatan@ceicom.com.br>
  * @website    http://www.ceicom.com.br
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 //config
 //
-$EbitIntegrationHabilitar = Mage::getStoreConfig('EbitIntegration/config/EbitIntegration_habilitar');
+$EbitIntegrationHabilitar = Mage::getStoreConfig('ceicom_ebitintegration/config/ebitintegration_habilitar');
 
 //Store Id
-$EbitIntegrationStoreid = Mage::getStoreConfig('EbitIntegration/config/EbitIntegration_storeid');
+$EbitIntegrationStoreid = Mage::getStoreConfig('ceicom_ebitintegration/config/ebitintegration_storeid');
 
 //Buscape Id
-$EbitIntegrationBuscapeid = Mage::getStoreConfig('EbitIntegration/config/EbitIntegration_buscapeid');
+$EbitIntegrationBuscapeid = Mage::getStoreConfig('ceicom_ebitintegration/config/ebitintegration_buscapeid');
 
 //Popup Ebit
-$EbitIntegrationPopup = Mage::getStoreConfig('EbitIntegration/config/EbitIntegration_popup');
+$EbitIntegrationPopup = Mage::getStoreConfig('ceicom_ebitintegration/config/ebitintegration_popup');
+
 
 ?>
 
@@ -36,24 +37,24 @@ $EbitIntegrationPopup = Mage::getStoreConfig('EbitIntegration/config/EbitIntegra
 		<!-- selo ebit  -->
 		<?php
 
-		//Habilitar popup
+		//Configuraçao de habilitar
 		$popupEnable = $EbitIntegrationPopup == 1 ? 'true' : 'false';
 
-		//Id de order
+		//Id do pedido
 		$orderId = Mage::getSingleton('checkout/session')->getLastRealOrderId();
 
-		//order
+		//Pedido
 		$order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
 
-		//price total
+		//Price total
 		$priceTotal = number_format($order->grandTotal, 2, '.','');
 
 		//Customer
-		//email
+		//Email
 		$emailCustomer = $order->getCustomerEmail();
-		//data de nacimento
+		//Data de nacimento
 		$birthdayCustomer = date('d-m-Y', strtotime($order->getCustomerDob()));
-		//sexo
+		//Sexo
 		$genderCustomer = $order->getCustomerGender() == '1' ? 'M' : 'F';
 		//Shipping
 		$taxShipping =  Mage::helper('core')->currency($order->getBaseShippingInclTax(), false, false);
@@ -61,13 +62,59 @@ $EbitIntegrationPopup = Mage::getStoreConfig('EbitIntegration/config/EbitIntegra
 		//Address
 		//id de endereco de compra
 		$addressId = $order->getShippingAddress()->getId();
-		//carrega infos de endereco
+		//Carrega infos de endereco
 		$address = Mage::getModel('sales/order_address')->load($addressId);
-		//pega o cep de entraga
+		//Pega o cep de entraga
 		$cepAddress = $address->getPostcode();
 
-		//forma de pagamento
-		//$paymentType = $order->getPayment()->getMethodInstance()->getCode();
+		//Forma de pagamento
+		$paymentType = $order->getPayment()->getMethodInstance();
+		$paymentId = $paymentType->getCode();
+		$paymentTitle = $paymentType->getTitle();
+
+		$paymentCctype = $order->getPayment()->getData('cc_type');
+		$paymentParcel = $order->getPayment()->getData('additional_data');
+
+
+		//Pagamentos
+		$pagamentosCosts = Mage::getStoreConfig('ceicom_ebitintegration/config/ebitintegration_pagamentos');
+
+		//echo $shippingCosts;
+		if ($pagamentosCosts) {
+		    $pagamentosCosts = unserialize($pagamentosCosts);
+		    if (array_keys($pagamentosCosts)) {
+		        foreach($pagamentosCosts as $pagamentosCost) {
+							if ($paymentTitle == $pagamentosCost['pagamentos']) {
+								$idPagamento = $pagamentosCost['id_ebit'];
+								$namePagamento = $pagamentosCost['pagamentos'];
+							}
+
+		        }
+
+		    } else {
+		        // handle unserializing errors here
+		    }
+		}
+
+		print_r($pagamentosCosts);
+
+		// if ($paymentTitle == $namePagamento) {
+		// 	$idPagamento = $idPagamento ? $idPagamento :  '14';
+		// }else{
+		// 	$idPagamento = '14';
+		// }
+		//
+		// //print_r($paymentType);
+		// print_r('Id pagamento: ' . $idPagamento);
+		// print_r('<br>Name pagamento: ' . $paymentTitle);
+    // print_r('<br>Bandeira: ' . $paymentCctype);
+		// print_r('<br>Parcelas: ' . $paymentParcel);
+		// print_r('<br>$EbitIntegrationStoreid: ' . $EbitIntegrationStoreid);
+
+
+
+
+		// echo $this->getLayout()->createBlock($paymentType->getInfoBlockType())->setData('info', $order->getPayment())->toHtml();
 
 		//pega as infos de cada produto
 		$priceAll = '';
@@ -75,6 +122,8 @@ $EbitIntegrationPopup = Mage::getStoreConfig('EbitIntegration/config/EbitIntegra
 		$nameAll = '';
 		$skuAll = '';
 		$eanAll = '';
+		$mktAll = '';
+		$htmlParam = '';
 
 		foreach($order->getAllVisibleItems() as $item){
 
@@ -104,13 +153,16 @@ $EbitIntegrationPopup = Mage::getStoreConfig('EbitIntegration/config/EbitIntegra
 
 		}
 
-
+		//link do banner
 		$htmlParam .= '<a id="bannerEbit"></a>';
+
+		//Script do banner
 		$htmlParam .= '<script type="text/javascript" id="getSelo" src="https://imgs.ebit.com.br/ebitBR/selo-ebit/js/getSelo.js?';
 		$htmlParam .=      $EbitIntegrationStoreid;
 		$htmlParam .=      '&lightbox=' . $popupEnable;
 		$htmlParam .= '"></script>';
 
+		//Todos os parametros
 		$htmlParam .= '<param id="ebitParam" value="';
 		$htmlParam .=     'email=' . $emailCustomer;
 		$htmlParam .=     '&gender=' . $genderCustomer;
@@ -126,11 +178,12 @@ $EbitIntegrationPopup = Mage::getStoreConfig('EbitIntegration/config/EbitIntegra
 		$htmlParam .=     '&sku=' . $skuAll;
 		$htmlParam .=     '&ean=' . $eanAll;
 		$htmlParam .=     '&plataform=0';
+		$htmlParam .=     '&paymentType=' . $paymentTitle;
 		$htmlParam .=     '&buscapeId=' . $EbitIntegrationBuscapeid;
 		$htmlParam .=     '&storeId=' . $EbitIntegrationStoreid;
 		$htmlParam .= '"/>';
 
-
+		//imprime o html
 	 	echo  $htmlParam;
 	 ?>
 
