@@ -1,4 +1,14 @@
 <?php
+
+/**
+ *
+ * @category   Ceicom
+ * @package   Ceicom_EbitIntegration
+ * @author      Jonatan <jonatan@ceicom.com.br>
+ * @website    http://www.ceicom.com.br
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
 class Ceicom_EbitIntegration_Block_Adminhtml_Form_Field_Idebit
     extends Mage_Core_Block_Html_Select
 {
@@ -16,10 +26,9 @@ class Ceicom_EbitIntegration_Block_Adminhtml_Form_Field_Idebit
           array("value" => "28","label" => "28 (Cartão de Débito / Débito em Conta)",)
         );
 
-
         foreach ($options as $option) {
             $this->addOption($option['value'], $option['label']);
-        
+
         }
 
         return parent::_toHtml();

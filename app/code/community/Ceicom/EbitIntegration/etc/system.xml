@@ -80,7 +80,7 @@
 						</ebitintegration_buscapeid>
 
 						<ebitintegration_pagamentos translate="label">
-							 <label>Configurar pagamento com o id do Ebit</label>
+							 <label>Relacionar meus pagamentos com o Ebit</label>
 							 <comment>
 								<![CDATA[
 									ID do tipo de pagamento. Valores aceitos são:<br>

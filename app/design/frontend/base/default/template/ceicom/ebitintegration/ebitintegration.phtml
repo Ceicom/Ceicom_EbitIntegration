@@ -68,12 +68,14 @@ $EbitIntegrationPopup = Mage::getStoreConfig('ceicom_ebitintegration/config/ebit
 		$cepAddress = $address->getPostcode();
 
 		//Forma de pagamento
-		$paymentType = $order->getPayment()->getMethodInstance();
+
+		$payment = $order->getPayment();
+		$paymentType = $payment->getMethodInstance();
 		$paymentId = $paymentType->getCode();
 		$paymentTitle = $paymentType->getTitle();
 
-		$paymentCctype = $order->getPayment()->getData('cc_type');
-		$paymentParcel = $order->getPayment()->getData('additional_data');
+		$paymentcParcel = $payment->getData('additional_data');
+		$paymentcType = $payment->getData('cc_type');
 
 
 		//Pagamentos
@@ -84,8 +86,8 @@ $EbitIntegrationPopup = Mage::getStoreConfig('ceicom_ebitintegration/config/ebit
 		    $pagamentosCosts = unserialize($pagamentosCosts);
 		    if (array_keys($pagamentosCosts)) {
 		        foreach($pagamentosCosts as $pagamentosCost) {
-							if ($paymentTitle == $pagamentosCost['pagamentos']) {
-								$idPagamento = $pagamentosCost['id_ebit'];
+							if ($paymentId == $pagamentosCost['pagamentos']) {
+								$idPagamento = $pagamentosCost['idebit'];
 								$namePagamento = $pagamentosCost['pagamentos'];
 							}
 
@@ -96,25 +98,6 @@ $EbitIntegrationPopup = Mage::getStoreConfig('ceicom_ebitintegration/config/ebit
 		    }
 		}
 
-		print_r($pagamentosCosts);
-
-		// if ($paymentTitle == $namePagamento) {
-		// 	$idPagamento = $idPagamento ? $idPagamento :  '14';
-		// }else{
-		// 	$idPagamento = '14';
-		// }
-		//
-		// //print_r($paymentType);
-		// print_r('Id pagamento: ' . $idPagamento);
-		// print_r('<br>Name pagamento: ' . $paymentTitle);
-    // print_r('<br>Bandeira: ' . $paymentCctype);
-		// print_r('<br>Parcelas: ' . $paymentParcel);
-		// print_r('<br>$EbitIntegrationStoreid: ' . $EbitIntegrationStoreid);
-
-
-
-
-		// echo $this->getLayout()->createBlock($paymentType->getInfoBlockType())->setData('info', $order->getPayment())->toHtml();
 
 		//pega as infos de cada produto
 		$priceAll = '';
@@ -178,9 +161,12 @@ $EbitIntegrationPopup = Mage::getStoreConfig('ceicom_ebitintegration/config/ebit
 		$htmlParam .=     '&sku=' . $skuAll;
 		$htmlParam .=     '&ean=' . $eanAll;
 		$htmlParam .=     '&plataform=0';
-		$htmlParam .=     '&paymentType=' . $paymentTitle;
+		$htmlParam .=     '&paymentType=' . $idPagamento;
 		$htmlParam .=     '&buscapeId=' . $EbitIntegrationBuscapeid;
 		$htmlParam .=     '&storeId=' . $EbitIntegrationStoreid;
+		$htmlParam .= 		$paymentcParcel  ? '&parcels=' . $paymentcParcel : '';
+		$htmlParam .= 		$paymentcType  ? '&cardFlag=' . $paymentcType : '';
+
 		$htmlParam .= '"/>';
 
 		//imprime o html
