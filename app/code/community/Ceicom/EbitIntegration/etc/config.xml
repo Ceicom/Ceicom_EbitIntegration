@@ -12,7 +12,7 @@
 <config>
 	<modules>
 		<Ceicom_Ebitintegration>
-			<version>0.0.1</version>
+			<version>1.0.1</version>
 		</Ceicom_Ebitintegration>
 	</modules>
 	<global>
