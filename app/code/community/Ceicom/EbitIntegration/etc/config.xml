@@ -3,42 +3,52 @@
 /**
  *
  * @category   Ceicom
- * @package   Ceicom_EbitIntegration
- * @author      Suporte <suporte@ceicom.com.br>
+ * @package   Ceicom_Ebitintegration
+ * @author      Jonatan <jonatan@ceicom.com.br>
  * @website    http://www.ceicom.com.br
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 -->
 <config>
 	<modules>
-		<Ceicom_EbitIntegration>
-			<version>0.0.1</version>
-		</Ceicom_EbitIntegration>
+		<Ceicom_Ebitintegration>
+			<version>1.0.1</version>
+		</Ceicom_Ebitintegration>
 	</modules>
 	<global>
+		<blocks>
+	     <ceicom_ebitintegration>
+	         <class>Ceicom_EbitIntegration_Block</class>
+	     </ceicom_ebitintegration>
+	  </blocks>
+		<models>
+				<ceicom_ebitintegration>
+						<class>Ceicom_EbitIntegration_Model</class>
+				</ceicom_ebitintegration>
+		</models>
 		<helpers>
-			<EbitIntegration>
+			<ceicom_ebitintegration>
 				<class>Ceicom_EbitIntegration_Helper</class>
-			</EbitIntegration>
+			</ceicom_ebitintegration>
 		</helpers>
 	</global>
 	<frontend>
 		<layout>
 			<updates>
-				<ceicom_EbitIntegration>
+				<ceicom_ebitintegration>
 					<file>ceicom/ebitintegration.xml</file>
-				</ceicom_EbitIntegration>
+				</ceicom_ebitintegration>
 			</updates>
 		</layout>
 	</frontend>
 	<default>
-		<EbitIntegration>
+		<ebitintegration>
 			<config>
 				<habilitar>0</habilitar>
-				<EbitIntegration_storeid>000000</EbitIntegration_storeid>
-				<EbitIntegration_buscapeid>000000</EbitIntegration_buscapeid>
-				<EbitIntegration_popup>1</EbitIntegration_popup>
+				<ebitintegration_storeid></ebitintegration_storeid>
+				<ebitintegration_buscapeid></ebitintegration_buscapeid>
+				<ebitintegration_popup>1</ebitintegration_popup>
 			</config>
-		</EbitIntegration>
+		</ebitintegration>
 	</default>
 </config>
