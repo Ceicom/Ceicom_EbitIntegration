@@ -47,8 +47,8 @@ Versões: Magento 1.x.x
 **Add** After installation install idEbit and idBuscapé in
 System> Configuration> Ceicom> Ebit Integration
 Print config:
-https://prnt.sc/iemtkf
-![print](https://image.prntscr.com/image/Hf9fj3pNR-iuadiVHTVT3Q.png)
+http://i.imgur.com/gRlX4jy.png
+![print](http://i.imgur.com/gRlX4jy.png)
 
 
 ## Authors
