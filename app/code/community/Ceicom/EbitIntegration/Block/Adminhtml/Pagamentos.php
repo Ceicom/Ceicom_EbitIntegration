@@ -19,9 +19,9 @@ class Ceicom_EbitIntegration_Block_Adminhtml_Pagamentos extends Mage_Adminhtml_B
  protected $_itemRendererEbit;
  protected $_itemRendererPag;
 
-   public function _prepareToRender($name)
+   public function _prepareToRender()
    {
-     Mage::log($name);
+
        $this->addColumn('idebit', array(
            'label' => Mage::helper('ceicom_ebitintegration')->__('IdEbit'),
            'renderer' => $this->_getRendererEbit(),
@@ -35,7 +35,6 @@ class Ceicom_EbitIntegration_Block_Adminhtml_Pagamentos extends Mage_Adminhtml_B
 
        $this->_addAfter = false;
        $this->_addButtonLabel = Mage::helper('ceicom_ebitintegration')->__('Relacionar outro');
-            Mage::log($name);
 
    }
 
